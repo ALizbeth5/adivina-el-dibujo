@@ -1,4 +1,4 @@
-#  Adivina mi Dibujo
+# 🎨 Adivina mi Dibujo
 
 **Proyecto Final Individual — Inteligencia Artificial**
 
@@ -11,7 +11,7 @@ Sistema de clasificación de dibujos en tiempo real: mientras el usuario dibuja 
 
 ---
 
-##  Tabla de contenido
+## 📋 Tabla de contenido
 
 - [Descripción](#-descripción)
 - [Demo](#-demo)
@@ -24,10 +24,31 @@ Sistema de clasificación de dibujos en tiempo real: mientras el usuario dibuja 
 - [Decisiones de diseño](#-decisiones-de-diseño)
 - [Autora](#-autora)
 
-##  Descripción
+## 📖 Descripción
 
 El modelo es una **Red Neuronal Convolucional entrenada desde cero** (sin Transfer Learning, ya que los datos son trazos simplificados y no fotografías) con el dataset [Quick, Draw!](https://quickdraw.withgoogle.com/data) de Google. La interfaz está construida con [Gradio](https://www.gradio.app/), usando un lienzo de dibujo (`Sketchpad`) que envía la predicción en tiempo real (`live=True`) conforme el usuario dibuja.
 
+## 🎥 Demo
+
+> Video de presentación (8-10 min) con explicación técnica y demo en vivo: **[agregar link aquí]**
+
+La app muestra las 3 predicciones más probables junto con su porcentaje de confianza mientras se dibuja:
+
+```
+🖌️  Dibuja algo...  →  🐱 gato (94%)  ☀️ sol (4%)  🏠 casa (2%)
+```
+
+## 🏷️ Categorías
+
+| Categoría | Ejemplos por clase |
+|---|---|
+| 🐱 Gato | 2,000 |
+| 🏠 Casa | 2,000 |
+| ☀️ Sol | 2,000 |
+| 🚲 Bicicleta | 2,000 |
+| ☂️ Paraguas | 2,000 |
+
+Elegidas por tener siluetas visualmente distintas entre sí, para minimizar la ambigüedad entre clases.
 
 ## 🗂️ Dataset
 
@@ -74,18 +95,18 @@ Dense(5, softmax)
 
 Las confusiones más frecuentes fueron **sol ↔ paraguas** y **gato ↔ sol**: en trazos rápidos y esquemáticos, ambas comparten una forma curva/circular base con líneas saliendo (rayos, varillas, orejas), lo que dificulta su distinción.
 
-##  Estructura del repositorio
+## 📁 Estructura del repositorio
 
 ```
-├── adivina_mi_dibujo.ipynb   # Notebook completo: dataset, entrenamiento, app
+├── Evaluación.ipynb          # Notebook completo: dataset, entrenamiento, app
 ├── adivina_mi_dibujo.h5      # Modelo entrenado exportado
-├── informe_tecnico.docx      # Informe técnico del proyecto
-└── README.md
+├── informe_técnico.pdf       # Informe técnico del proyecto
+└── LÉAME.md
 ```
 
-## Cómo ejecutarlo
+## ▶️ Cómo ejecutarlo
 
-1. Abre `adivina_mi_dibujo.ipynb` en [Google Colab](https://colab.research.google.com/).
+1. Abre `Evaluación.ipynb` en [Google Colab](https://colab.research.google.com/).
 2. Ejecuta todas las celdas en orden (descarga del dataset → entrenamiento → app de Gradio).
    - Para probar solo la app sin re-entrenar, carga el modelo directamente:
      ```python
@@ -95,13 +116,13 @@ Las confusiones más frecuentes fueron **sol ↔ paraguas** y **gato ↔ sol**: 
 
 **Requisitos:** `tensorflow`, `numpy`, `matplotlib`, `scikit-learn`, `seaborn`, `gradio`, `Pillow` (todo preinstalado en Colab, excepto `gradio`, que se instala con `!pip install gradio -q`).
 
-##  Decisiones de diseño
+## 🎯 Decisiones de diseño
 
 - Se limitó el dataset a 2,000 imágenes por clase para mantenerlo balanceado y con un tiempo de entrenamiento manejable en Colab.
 - Se usó `Dropout(0.3)` para reducir el riesgo de sobreajuste dado el tamaño moderado del dataset.
 - La app usa `live=True` en Gradio para actualizar la predicción automáticamente mientras se dibuja, sin botón de envío.
 - Fue necesario **invertir los colores** de la imagen capturada por el `Sketchpad` (trazo oscuro sobre fondo claro) antes de pasarla al modelo, ya que Quick Draw representa sus imágenes al revés (trazo blanco sobre fondo negro).
 
-##  Autora
+## 👤 Autora
 
-**Lizbeth Chacasaguay** — Proyecto Final Individual, materia de Inteligencia Artificial
+**Lizbeth** — Proyecto Final Individual, materia de Inteligencia Artificial
